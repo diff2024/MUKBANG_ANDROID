@@ -29,7 +29,6 @@ public class ListActivity extends AppCompatActivity {
         List<UserRestaurantData> UserRestaurantList = MainActivity.UserRestaurantList;
         for(int x=0; x<UserRestaurantList.size(); x++) {
             System.out.println("============================================================================");
-            System.out.println("> 채널ID : " + UserRestaurantList.get(x).getUserChannelId());
             System.out.println("> 채널이름 : " + UserRestaurantList.get(x).getUserChannelName());
             System.out.println("> 음식점ID : " + UserRestaurantList.get(x).getUserRestaurantId());
             System.out.println("> 음식점이름 : " + UserRestaurantList.get(x).getUserRestaurantName());
