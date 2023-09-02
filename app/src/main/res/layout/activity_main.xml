@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sothree.slidinguppanel.SlidingUpPanelLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_panel"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.MainActivity"
+    android:gravity="bottom"
+    android:background="#00FFFFFF"
+    tools:ignore="MissingConstraints"
+    app:umanoInitialState="collapsed"
+    app:umanoDragView="@+id/slide_layout"
+    app:umanoPanelHeight="0dp"
+    app:umanoOverlay="true"
+    app:umanoShadowHeight="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Activity.MainActivity">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/map"
+            android:name="com.naver.maps.map.MapFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginEnd="50dp"
+            android:scrollbars="none"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="0dp">
+
+            <LinearLayout
+                android:id="@+id/linear_layout"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView_Sub"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            tools:ignore="MissingConstraints"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:layout_editor_absoluteX="340dp"
+            tools:layout_editor_absoluteY="0dp">
+
+            <LinearLayout
+                android:id="@+id/linear_layout_Sub"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_setting"
+                    android:layout_width="40dp"
+                    android:layout_height="50dp"
+                    android:background="#00ff0000"
+                    android:fontWeight="500"
+                    android:paddingLeft="7dp"
+                    android:paddingTop="10dp"
+                    android:text="설정"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom|center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_list"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_weight="0"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/btn_style"
+                android:text="목록"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="18dp" />
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:background="@color/FFFFFFFF"
+        android:id="@+id/slide_lienear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/swipe"
+            android:layout_width="60dp"
+            android:layout_height="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/view_round"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:id="@+id/slide_title_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:fontFamily="bold"
+            android:textColor="@color/FF000000"
+            android:textSize="20dp"
+            android:paddingLeft="10dp"
+            android:text="TextView" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingTop="2dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp"
+            android:textAlignment="textStart">
+
+            <TextView
+                android:id="@+id/slide_address_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="@color/FF000000"
+                android:textSize="15dp" />
+
+            <ImageButton
+                android:id="@+id/btn_address_copy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:paddingLeft="5dp"
+                android:src="@drawable/btn_address_copy" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingTop="2dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp"
+            android:textAlignment="textStart">
+
+            <ImageView
+                android:id="@+id/review_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/star_svg_icon"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/review_star_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="3dp"
+                android:paddingBottom="2dp"
+                android:text=""
+                android:textFontWeight="800"
+                android:textColor="@color/FF000000"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/review_star_full_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="5dp"
+                android:paddingBottom="2dp"
+                android:text="/5"
+                android:textColor="@color/FF808080"
+                android:textFontWeight="800"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/review_gubun_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="5dp"
+                android:paddingBottom="2dp"
+                android:text="·"
+                android:textColor="@color/FF808080"
+                android:textFontWeight="800"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/review_visitor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="5dp"
+                android:paddingBottom="2dp"
+                android:clickable="true"
+                android:text="방문자리뷰"
+                android:textColor="@color/FF0068C3"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/review_gubun_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="5dp"
+                android:paddingBottom="2dp"
+                android:text="·"
+                android:textColor="@color/FF808080"
+                android:textFontWeight="800"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/review_blog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="5dp"
+                android:paddingBottom="2dp"
+                android:clickable="true"
+                android:text="블로그리뷰"
+                android:textColor="@color/FF0068C3"
+                android:textSize="15dp" />
+
+        </LinearLayout>
+
+        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+            android:id="@+id/youtube_player_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            app:showFullScreenButton="true"
+            app:videoId="S0Q4gqBUs7c"
+            app:autoPlay="false" >
+
+        </com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:textAlignment="center">
+
+            <Button
+                android:id="@+id/btn_naver_map"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/map_btn"
+                android:drawableLeft="@drawable/naver_map"
+                android:text="네이버 지도" />
+
+            <Button
+                android:id="@+id/btn_kakao_map"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"
+                android:background="@drawable/map_btn"
+                android:drawableLeft="@drawable/kakao_map"
+                android:text="카카오맵" />
+
+            <Button
+                android:id="@+id/btn_t_map"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/map_btn"
+                android:drawableLeft="@drawable/t_map"
+                android:text="Tmap" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>

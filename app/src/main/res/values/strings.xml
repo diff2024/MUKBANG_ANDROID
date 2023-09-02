@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">먹뷰</string>
+    <string-array name="array_color">
+        <item>#FFFFFF</item>
+        <item>#000000</item>
+        <item>#DC143C</item>
+        <item>#FF3333</item>
+        <item>#E8472E</item>
+        <item>#FF8C8C</item>
+        <item>#F77F23</item>
+        <item>#E38436</item>
+        <item>#F0E090</item>
+        <item>#98B84D</item>
+        <item>#A3D17B</item>
+        <item>#6ECF69</item>
+        <item>#6EC48C</item>
+        <item>#5AA392</item>
+        <item>#4B8BBF</item>
+        <item>#6A88D4</item>
+        <item>#736DC9</item>
+        <item>#864FBD</item>
+        <item>#D169CA</item>
+        <item>#CC99FF</item>
+    </string-array>
+</resources>
