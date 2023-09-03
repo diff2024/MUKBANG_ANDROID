@@ -64,7 +64,7 @@ public class SettingActivity extends AppCompatActivity {
 
         final GradientDrawable drawable = (GradientDrawable) ContextCompat.getDrawable(this, R.drawable.setting_btn);
 
-        ListView listView = findViewById(R.id.listview_list);
+        ListView listView = findViewById(R.id.setting_listview_list);
         SettingListItemView_Adapter adapter_listview = new SettingListItemView_Adapter();
 
         List<ChannelData> UserSettingChannelList = MainActivity.UserSettingChannelList;
@@ -77,7 +77,7 @@ public class SettingActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                View btn_channelColor = findViewById(R.id.listview_list);
+                View btn_channelColor = findViewById(R.id.setting_listview_list);
                 final SettingListItem item = (SettingListItem) adapter_listview.getItem(i);
                 String item_ChannelId = item.getChannelId();
                 String item_ChannelName = item.getChannelName();

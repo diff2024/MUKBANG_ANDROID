@@ -71,6 +71,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback {
+    Button listBtn;
     Button naverBtn, kakaoBtn, tBtn;
     ImageButton btn_address_copy;
     //유튜브 API KEY와 동영상 ID 변수 설정
@@ -132,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         naverBtn = (Button) findViewById(R.id.btn_naver_map);
         kakaoBtn = (Button) findViewById(R.id.btn_kakao_map);
         tBtn = (Button) findViewById(R.id.btn_t_map);
+        listBtn = (Button) findViewById(R.id.btn_list);
         btn_address_copy = (ImageButton) findViewById(R.id.btn_address_copy);
         //YouTubePlayerTracker tracker = new YouTubePlayerTracker();
 
@@ -151,8 +153,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
             }
         });
-
-        Button listBtn = (Button) findViewById(R.id.btn_list);
         listBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -399,6 +399,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 myLatitude = location.getLatitude();
                 myLongitude = location.getLongitude();
 
+                if(myLatitude > 0 && myLongitude > 0) {
+                    listBtn.setVisibility(View.VISIBLE);
+                }
                 //System.out.println("경도 : " + Double.toString(myLatitude));
                 //System.out.println("위도 : " + Double.toString(myLongitude));
             }
@@ -494,8 +497,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         markers[marker_cnt] = new Marker();
                         markers[marker_cnt].setCaptionText(userRestaurantData.getUserRestaurantName());
                         markers[marker_cnt].setIcon(MarkerIcons.BLACK);
-                        markers[marker_cnt].setWidth(75);
-                        markers[marker_cnt].setHeight(102);
+                        markers[marker_cnt].setWidth(35);
+                        markers[marker_cnt].setHeight(55);
                         markers[marker_cnt].setIconTintColor(Color.parseColor("#" + userRestaurantData.getUserChannelColor()));
                         markers[marker_cnt].setPosition(new LatLng(Double.parseDouble(userRestaurantData.getUserRestaurantLatitude().toString()), Double.parseDouble(userRestaurantData.getUserRestaurantLongitude().toString())));
                         markers[marker_cnt].setMap(naverMap);
