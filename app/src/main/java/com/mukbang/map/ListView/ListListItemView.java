@@ -5,13 +5,11 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.Nullable;
-
 import com.mukbang.map.R;
 
 public class ListListItemView extends LinearLayout {
-    TextView textView_channelId, textView_channelName, textView_restaurantId, textView_restaurantName, textView_restaurantAddress;
+    TextView textView_channelId, textView_channelName, textView_restaurantId, textView_restaurantName, textView_restaurantDistance, textView_restaurantAddress;
 
     public ListListItemView(Context context){
         super(context);
@@ -30,6 +28,7 @@ public class ListListItemView extends LinearLayout {
         textView_channelName = findViewById(R.id.textView_channelName);
         textView_restaurantId = findViewById(R.id.textView_restaurantId);
         textView_restaurantName = findViewById(R.id.textView_restaurantName);
+        textView_restaurantDistance = findViewById(R.id.textView_restaurantDistance);
         textView_restaurantAddress = findViewById(R.id.textView_restaurantAddress);
     }
 
@@ -39,7 +38,8 @@ public class ListListItemView extends LinearLayout {
     public void setChannelName(String channelName){
         textView_channelName.setText(channelName);
     }
-    public void setRestaurantId(String restaurantId){ textView_restaurantId.setText(restaurantId ); }
-    public void setRestaurantName(String restaurantName){ textView_restaurantName.setText(restaurantName ); }
-    public void setRestaurantAddress(String restaurantAddress){ textView_restaurantAddress.setText(restaurantAddress ); }
+    public void setRestaurantId(String restaurantId){ textView_restaurantId.setText(restaurantId); }
+    public void setRestaurantName(String restaurantName){ textView_restaurantName.setText(restaurantName); }
+    public void setRestaurantDistance(String restaurantDistance){ textView_restaurantDistance.setText(restaurantDistance); }
+    public void setRestaurantAddress(String restaurantAddress){ textView_restaurantAddress.setText(restaurantAddress); }
 }
