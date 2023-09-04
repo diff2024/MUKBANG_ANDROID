@@ -5,13 +5,15 @@ public class ListListItem {
     String channelName;
     String restaurantId;
     String restaurantName;
+    String restaurantDistance;
     String restaurantAddress;
 
-    public ListListItem(String channelId, String channelName, String restaurantId, String restaurantName, String restaurantAddress) {
+    public ListListItem(String channelId, String channelName, String restaurantId, String restaurantName, String restaurantDistance, String restaurantAddress) {
         this.channelId = channelId;
         this.channelName = channelName;
         this.restaurantId = restaurantId;
         this.restaurantName = restaurantName;
+        this.restaurantDistance = restaurantDistance;
         this.restaurantAddress = restaurantAddress;
     }
 
@@ -47,6 +49,14 @@ public class ListListItem {
         return restaurantName;
     }
 
+    public void setRestaurantDistance(String restaurantDistance){
+        this.restaurantDistance = restaurantDistance;
+    }
+
+    public String getRestaurantDistance() {
+        return restaurantDistance;
+    }
+
     public void setRestaurantAddress(String restaurantAddress){
         this.restaurantAddress = restaurantAddress;
     }
@@ -57,6 +67,6 @@ public class ListListItem {
 
     @Override
     public String toString(){
-        return "SettingListItem{"+ "channelId='" + channelId + '\'' + ", channelName='" + channelName + '\'' + ", restaurantId='" + restaurantId + '\'' + ", restaurantName='" + restaurantName + '\'' + ", restaurantAddress='" + restaurantAddress + '\'' + '}';
+        return "ListItem{"+ "channelId='" + channelId + '\'' + ", channelName='" + channelName + '\'' + ", restaurantId='" + restaurantId + '\''  + ", restaurantName='" + restaurantName + '\'' + ", restaurantDistance='" + restaurantDistance + '\'' + ", restaurantAddress='" + restaurantAddress + '\'' + '}';
     }
 }

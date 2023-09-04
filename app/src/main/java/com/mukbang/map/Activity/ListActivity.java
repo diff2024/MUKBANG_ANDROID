@@ -77,9 +77,8 @@ public class ListActivity extends AppCompatActivity {
         });
 
         for(int x=0; x<DistanceList.size(); x++){
-            System.out.println("DISTANCE============================================================================DISTANCE");
-            System.out.println("["+DistanceList.get(x).get("RestaurantDistance")+"] 음식점이름 : " + DistanceList.get(x).get("RestaurantName"));
-            adapter_listview.addItem(new ListListItem(UserRestaurantList.get(x).getUserChannelId(), UserRestaurantList.get(x).getUserChannelName(), UserRestaurantList.get(x).getUserRestaurantId(), UserRestaurantList.get(x).getUserRestaurantName(), UserRestaurantList.get(x).getUserRestaurantAddress()));
+            System.out.println((String) DistanceList.get(x).get("RestaurantDistance") + "km");
+            adapter_listview.addItem(new ListListItem((String) DistanceList.get(x).get("ChannelId"), (String) DistanceList.get(x).get("ChannelName"), (String) DistanceList.get(x).get("RestaurantId"), (String) DistanceList.get(x).get("RestaurantName"), (String) DistanceList.get(x).get("RestaurantDistance") + "km", (String) DistanceList.get(x).get("RestaurantAddress")));
         }
         listView.setAdapter(adapter_listview);
         /*
@@ -147,6 +146,7 @@ public class ListActivity extends AppCompatActivity {
             listListItemView.setChannelName(item.getChannelName());
             listListItemView.setRestaurantId(item.getRestaurantId());
             listListItemView.setRestaurantName(item.getRestaurantName());
+            listListItemView.setRestaurantDistance(item.getRestaurantDistance());
             listListItemView.setRestaurantAddress(item.getRestaurantAddress());
 
             return listListItemView;
