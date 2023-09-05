@@ -498,7 +498,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         markers[marker_cnt].setCaptionText(userRestaurantData.getUserRestaurantName());
                         markers[marker_cnt].setIcon(MarkerIcons.BLACK);
                         markers[marker_cnt].setWidth(35);
-                        markers[marker_cnt].setHeight(55);
+                        markers[marker_cnt].setHeight(50);
                         markers[marker_cnt].setIconTintColor(Color.parseColor("#" + userRestaurantData.getUserChannelColor()));
                         markers[marker_cnt].setPosition(new LatLng(Double.parseDouble(userRestaurantData.getUserRestaurantLatitude().toString()), Double.parseDouble(userRestaurantData.getUserRestaurantLongitude().toString())));
                         markers[marker_cnt].setMap(naverMap);

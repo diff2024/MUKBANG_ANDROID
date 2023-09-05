@@ -7,14 +7,22 @@ public class ListListItem {
     String restaurantName;
     String restaurantDistance;
     String restaurantAddress;
+    String restaurantNavermapId;
+    String restaurantKakaomapId;
+    String restaurantLatitude;
+    String restaurantLongitude;
 
-    public ListListItem(String channelId, String channelName, String restaurantId, String restaurantName, String restaurantDistance, String restaurantAddress) {
+    public ListListItem(String channelId, String channelName, String restaurantId, String restaurantName, String restaurantDistance, String restaurantAddress, String restaurantNavermapId, String restaurantKakaomapId, String restaurantLatitude, String restaurantLongitude) {
         this.channelId = channelId;
         this.channelName = channelName;
         this.restaurantId = restaurantId;
         this.restaurantName = restaurantName;
         this.restaurantDistance = restaurantDistance;
         this.restaurantAddress = restaurantAddress;
+        this.restaurantNavermapId = restaurantNavermapId;
+        this.restaurantKakaomapId = restaurantKakaomapId;
+        this.restaurantLatitude = restaurantLatitude;
+        this.restaurantLongitude = restaurantLongitude;
     }
 
     public void setChannelId(String channelId){
@@ -63,6 +71,38 @@ public class ListListItem {
 
     public String getRestaurantAddress() {
         return restaurantAddress;
+    }
+
+    public void setRestaurantNavermapId(String restaurantNavermapId){
+        this.restaurantNavermapId = restaurantNavermapId;
+    }
+
+    public String getRestaurantNavermapId() {
+        return restaurantNavermapId;
+    }
+
+    public void setRestaurantKakaomapId(String restaurantKakaomapId){
+        this.restaurantKakaomapId = restaurantKakaomapId;
+    }
+
+    public String getRestaurantKakaomapId() {
+        return restaurantKakaomapId;
+    }
+
+    public void setRestaurantLatitude(String restaurantLatitude){
+        this.restaurantLatitude = restaurantLatitude;
+    }
+
+    public String getRestaurantLatitude() {
+        return restaurantLatitude;
+    }
+
+    public void setRestaurantLongitude(String restaurantLongitude){
+        this.restaurantLongitude = restaurantLongitude;
+    }
+
+    public String getRestaurantLongitude() {
+        return restaurantLongitude;
     }
 
     @Override

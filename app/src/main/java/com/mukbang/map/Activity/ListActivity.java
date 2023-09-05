@@ -1,9 +1,15 @@
 package com.mukbang.map.Activity;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.drawable.GradientDrawable;
 import android.icu.text.Collator;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
@@ -12,6 +18,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -32,7 +39,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,15 +53,7 @@ public class ListActivity extends AppCompatActivity {
         List<UserRestaurantData> UserRestaurantList = MainActivity.UserRestaurantList;
         ArrayList<HashMap<String, Object>> DistanceList = new ArrayList<HashMap<String, Object>>();
         for(int x=0; x<UserRestaurantList.size(); x++) {
-            System.out.println("============================================================================");
-            System.out.println("> 채널이름 : " + UserRestaurantList.get(x).getUserChannelName());
-            System.out.println("> 음식점ID : " + UserRestaurantList.get(x).getUserRestaurantId());
-            System.out.println("> 음식점이름 : " + UserRestaurantList.get(x).getUserRestaurantName());
-            System.out.println("> 음식점주소 : " + UserRestaurantList.get(x).getUserRestaurantAddress());
-            System.out.println("> 음식점위도 : " + UserRestaurantList.get(x).getUserRestaurantLatitude());
-            System.out.println("> 음식점경도 : " + UserRestaurantList.get(x).getUserRestaurantLongitude());
-            String Distance = DistanceByDegreeAndroid(Double.parseDouble(UserRestaurantList.get(x).getUserRestaurantLatitude()), Double.parseDouble(UserRestaurantList.get(x).getUserRestaurantLongitude()));
-            System.out.println("> 음식점직선거리 : " + Distance);
+            String Distance = DistanceByDegreeAndroid(Double.parseDouble(UserRestaurantList.get(x).getUserRestaurantLatitude()), Double.parseDouble(UserRestaurantList.get(x).getUserRestaurantLongitude()));            System.out.println("> 음식점직선거리 : " + Distance);
 
             HashMap<String, Object> map = new HashMap<String, Object>();
             map.put("ChannelId", UserRestaurantList.get(x).getUserChannelId());
@@ -64,6 +62,10 @@ public class ListActivity extends AppCompatActivity {
             map.put("RestaurantName", UserRestaurantList.get(x).getUserRestaurantName());
             map.put("RestaurantAddress", UserRestaurantList.get(x).getUserRestaurantAddress());
             map.put("RestaurantDistance", Distance);
+            map.put("RestaurantNavermapId", UserRestaurantList.get(x).getUserRestaurantNavermapId());
+            map.put("RestaurantKakaomapId", UserRestaurantList.get(x).getUserRestaurantKakaomapId());
+            map.put("RestaurantLatitude", UserRestaurantList.get(x).getUserRestaurantLatitude());
+            map.put("RestaurantLongitude", UserRestaurantList.get(x).getUserRestaurantLongitude());
             DistanceList.add(map);
         }
 
@@ -78,7 +80,9 @@ public class ListActivity extends AppCompatActivity {
 
         for(int x=0; x<DistanceList.size(); x++){
             System.out.println((String) DistanceList.get(x).get("RestaurantDistance") + "km");
-            adapter_listview.addItem(new ListListItem((String) DistanceList.get(x).get("ChannelId"), (String) DistanceList.get(x).get("ChannelName"), (String) DistanceList.get(x).get("RestaurantId"), (String) DistanceList.get(x).get("RestaurantName"), (String) DistanceList.get(x).get("RestaurantDistance") + "km", (String) DistanceList.get(x).get("RestaurantAddress")));
+            adapter_listview.addItem(new ListListItem((String) DistanceList.get(x).get("ChannelId"), (String) DistanceList.get(x).get("ChannelName"), (String) DistanceList.get(x).get("RestaurantId")
+                    , (String) DistanceList.get(x).get("RestaurantName"), (String) DistanceList.get(x).get("RestaurantDistance") + "km", (String) DistanceList.get(x).get("RestaurantAddress")
+                    , (String) DistanceList.get(x).get("RestaurantNavermapId"), (String) DistanceList.get(x).get("RestaurantKakaomapId"), (String) DistanceList.get(x).get("RestaurantLatitude"), (String) DistanceList.get(x).get("RestaurantLongitude")));
         }
         listView.setAdapter(adapter_listview);
         /*
@@ -141,6 +145,14 @@ public class ListActivity extends AppCompatActivity {
             }else{
                 listListItemView = (ListListItemView) convertView;
             }
+
+            final Context context = parent.getContext();
+            // 'listview_custom' Layout을 inflate하여 convertView 참조 획득
+            if (convertView == null) {
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = inflater.inflate(R.layout.activity_list_listview, parent, false);
+            }
+
             ListListItem item = items.get(position);
             listListItemView.setChannelId(item.getChannelId());
             listListItemView.setChannelName(item.getChannelName());
@@ -149,6 +161,54 @@ public class ListActivity extends AppCompatActivity {
             listListItemView.setRestaurantDistance(item.getRestaurantDistance());
             listListItemView.setRestaurantAddress(item.getRestaurantAddress());
 
+            Button naverBtn = (Button) convertView.findViewById(R.id.btn_naver_map);
+            Button kakaoBtn = (Button) convertView.findViewById(R.id.btn_kakao_map);
+            Button tBtn = (Button) convertView.findViewById(R.id.btn_t_map);
+            naverBtn.setOnClickListener(new Button.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String url = "nmap://place?id="+items.get(position).getRestaurantNavermapId();
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    intent.addCategory(Intent.CATEGORY_BROWSABLE);
+
+                    List<ResolveInfo> list = getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                    if(list == null || list.isEmpty()) {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.nhn.android.nmap")));
+                    }else{
+                        startActivity(intent);
+                    }
+                }
+            });
+            kakaoBtn.setOnClickListener(new Button.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String url = "kakaomap://place?id="+items.get(position).getRestaurantKakaomapId();
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    intent.addCategory(Intent.CATEGORY_BROWSABLE);
+
+                    List<ResolveInfo> list = getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                    if(list == null || list.isEmpty()) {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=net.daum.android.map")));
+                    }else{
+                        startActivity(intent);
+                    }
+                }
+            });
+            tBtn.setOnClickListener(new Button.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String url = "tmap://route?goalx="+items.get(position).getRestaurantLongitude()+"&goaly="+items.get(position).getRestaurantLatitude()+"&goalname="+items.get(position).getRestaurantName();
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    intent.addCategory(Intent.CATEGORY_BROWSABLE);
+
+                    List<ResolveInfo> list = getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                    if(list == null || list.isEmpty()) {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.skt.tmap.ku")));
+                    }else{
+                        startActivity(intent);
+                    }
+                }
+            });
             return listListItemView;
         }
     }

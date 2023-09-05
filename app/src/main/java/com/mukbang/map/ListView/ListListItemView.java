@@ -1,12 +1,20 @@
 package com.mukbang.map.ListView;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import com.mukbang.map.R;
+
+import java.util.List;
 
 public class ListListItemView extends LinearLayout {
     TextView textView_channelId, textView_channelName, textView_restaurantId, textView_restaurantName, textView_restaurantDistance, textView_restaurantAddress;
