@@ -19,25 +19,25 @@
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_marginBottom="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:orientation="horizontal"
             tools:ignore="MissingConstraints">
 
             <TextView
                 android:id="@+id/textView_restaurantName"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_weight="2"
                 android:gravity="center_vertical"
                 android:text="Name"
-                android:textStyle="bold"
                 android:textColor="@color/black"
-                android:textSize="26sp" />
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView_restaurantDistance"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_weight="2"
                 android:gravity="right"
@@ -73,8 +73,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:orientation="horizontal"
             tools:ignore="MissingConstraints">
 
@@ -86,22 +86,23 @@
                 android:gravity="center_vertical"
                 android:text="Address"
                 android:textColor="@color/black"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:paddingTop="8dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:textAlignment="center">
 
             <Button
                 android:id="@+id/btn_naver_map"
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
+                android:layout_height="45dp"
                 android:layout_weight="1"
                 android:paddingRight="5dp"
                 android:paddingLeft="5dp"
@@ -113,7 +114,7 @@
             <Button
                 android:id="@+id/btn_kakao_map"
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
+                android:layout_height="45dp"
                 android:layout_weight="1"
                 android:paddingRight="5dp"
                 android:paddingLeft="5dp"
@@ -124,7 +125,7 @@
             <Button
                 android:id="@+id/btn_t_map"
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
+                android:layout_height="45dp"
                 android:layout_weight="1"
                 android:paddingRight="5dp"
                 android:paddingLeft="5dp"
