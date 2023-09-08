@@ -48,8 +48,6 @@ public class ListActivity extends AppCompatActivity {
         ListView listView = findViewById(R.id.list_listview_list);
         ListActivity.ListListItemView_Adapter adapter_listview = new ListActivity.ListListItemView_Adapter();
 
-        System.out.println("> 내 위치(위도) : " + Double.toString(MainActivity.myLatitude));
-        System.out.println("> 내 위치(경도) : " + Double.toString(MainActivity.myLongitude));
         List<UserRestaurantData> UserRestaurantList = MainActivity.UserRestaurantList;
         ArrayList<HashMap<String, Object>> DistanceList = new ArrayList<HashMap<String, Object>>();
         for(int x=0; x<UserRestaurantList.size(); x++) {
@@ -79,7 +77,6 @@ public class ListActivity extends AppCompatActivity {
         });
 
         for(int x=0; x<DistanceList.size(); x++){
-            System.out.println((String) DistanceList.get(x).get("RestaurantDistance") + "km");
             adapter_listview.addItem(new ListListItem((String) DistanceList.get(x).get("ChannelId"), (String) DistanceList.get(x).get("ChannelName"), (String) DistanceList.get(x).get("RestaurantId")
                     , (String) DistanceList.get(x).get("RestaurantName"), (String) DistanceList.get(x).get("RestaurantDistance") + "km", (String) DistanceList.get(x).get("RestaurantAddress")
                     , (String) DistanceList.get(x).get("RestaurantNavermapId"), (String) DistanceList.get(x).get("RestaurantKakaomapId"), (String) DistanceList.get(x).get("RestaurantLatitude"), (String) DistanceList.get(x).get("RestaurantLongitude")));
@@ -147,10 +144,11 @@ public class ListActivity extends AppCompatActivity {
             }
 
             final Context context = parent.getContext();
-            // 'listview_custom' Layout을 inflate하여 convertView 참조 획득
             if (convertView == null) {
-                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.activity_list_listview, parent, false);
+                //LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                //convertView = inflater.inflate(R.layout.activity_list_listview, parent, false);
+                //[황영철] 이렇게 해야 처음 로드되지마자 버튼 클릭이 된다.
+                convertView = listListItemView;
             }
 
             ListListItem item = items.get(position);
@@ -209,6 +207,7 @@ public class ListActivity extends AppCompatActivity {
                     }
                 }
             });
+
             return listListItemView;
         }
     }
