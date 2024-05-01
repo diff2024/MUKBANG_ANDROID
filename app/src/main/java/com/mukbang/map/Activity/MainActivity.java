@@ -494,157 +494,159 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                     int marker_cnt = 0;
                     for (UserRestaurantData userRestaurantData : list) {
-                        markers[marker_cnt] = new Marker();
-                        markers[marker_cnt].setCaptionText(userRestaurantData.getUserRestaurantName());
-                        markers[marker_cnt].setIcon(MarkerIcons.BLACK);
-                        markers[marker_cnt].setWidth(35);
-                        markers[marker_cnt].setHeight(50);
-                        markers[marker_cnt].setIconTintColor(Color.parseColor("#" + userRestaurantData.getUserChannelColor()));
-                        markers[marker_cnt].setPosition(new LatLng(Double.parseDouble(userRestaurantData.getUserRestaurantLatitude().toString()), Double.parseDouble(userRestaurantData.getUserRestaurantLongitude().toString())));
-                        markers[marker_cnt].setMap(naverMap);
-                        markers[marker_cnt].setOnClickListener(new Overlay.OnClickListener() {
-                            @Override
-                            public boolean onClick(@NonNull Overlay overlay) {
-                                // Marker 클릭(권세현)
-                                btn_address_copy.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-                                        ClipData clipData = ClipData.newPlainText("주소", userRestaurantData.getUserRestaurantAddress());
-                                        clipboardManager.setPrimaryClip(clipData);
-                                        Toast.makeText(getApplicationContext(), "주소가 복사 되었습니다.", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+                        if(!(userRestaurantData.getUserRestaurantLatitude().toString()).equals("") && !(userRestaurantData.getUserRestaurantLongitude().toString()).equals("")) {
+                            markers[marker_cnt] = new Marker();
+                            markers[marker_cnt].setCaptionText(userRestaurantData.getUserRestaurantName());
+                            markers[marker_cnt].setIcon(MarkerIcons.BLACK);
+                            markers[marker_cnt].setWidth(35);
+                            markers[marker_cnt].setHeight(50);
+                            markers[marker_cnt].setIconTintColor(Color.parseColor("#" + userRestaurantData.getUserChannelColor()));
+                            markers[marker_cnt].setPosition(new LatLng(Double.parseDouble(userRestaurantData.getUserRestaurantLatitude().toString()), Double.parseDouble(userRestaurantData.getUserRestaurantLongitude().toString())));
+                            markers[marker_cnt].setMap(naverMap);
+                            markers[marker_cnt].setOnClickListener(new Overlay.OnClickListener() {
+                                @Override
+                                public boolean onClick(@NonNull Overlay overlay) {
+                                    // Marker 클릭(권세현)
+                                    btn_address_copy.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                                            ClipData clipData = ClipData.newPlainText("주소", userRestaurantData.getUserRestaurantAddress());
+                                            clipboardManager.setPrimaryClip(clipData);
+                                            Toast.makeText(getApplicationContext(), "주소가 복사 되었습니다.", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
 
-                                naverBtn.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        System.out.println("=========["+userRestaurantData.getUserRestaurantName()+"] NaverMapID : " + userRestaurantData.getUserRestaurantNavermapId());
-                                        String url = "nmap://place?id="+userRestaurantData.getUserRestaurantNavermapId();
-                                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                                        intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                                    naverBtn.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            System.out.println("=========[" + userRestaurantData.getUserRestaurantName() + "] NaverMapID : " + userRestaurantData.getUserRestaurantNavermapId());
+                                            String url = "nmap://place?id=" + userRestaurantData.getUserRestaurantNavermapId();
+                                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                            intent.addCategory(Intent.CATEGORY_BROWSABLE);
 
-                                        List<ResolveInfo> list = getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
-                                        if(list == null || list.isEmpty()) {
-                                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.nhn.android.nmap")));
-                                        }else{
-                                            startActivity(intent);
+                                            List<ResolveInfo> list = getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                                            if (list == null || list.isEmpty()) {
+                                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.nhn.android.nmap")));
+                                            } else {
+                                                startActivity(intent);
+                                            }
+
+                                        }
+                                    });
+
+                                    kakaoBtn.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            System.out.println("=========[" + userRestaurantData.getUserRestaurantName() + "] KAKAOMapID : " + userRestaurantData.getUserRestaurantKakaomapId());
+                                            String url = "kakaomap://place?id=" + userRestaurantData.getUserRestaurantKakaomapId();
+                                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                            intent.addCategory(Intent.CATEGORY_BROWSABLE);
+
+                                            List<ResolveInfo> list = getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                                            if (list == null || list.isEmpty()) {
+                                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=net.daum.android.map")));
+                                            } else {
+                                                startActivity(intent);
+                                            }
+                                        }
+                                    });
+
+                                    tBtn.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            System.out.println("=========[" + userRestaurantData.getUserRestaurantName() + "] TMapID : " + userRestaurantData.getUserRestaurantTmapId());
+                                            String url = "tmap://route?goalx=" + userRestaurantData.getUserRestaurantLongitude() + "&goaly=" + userRestaurantData.getUserRestaurantLatitude() + "&goalname=" + userRestaurantData.getUserRestaurantName();
+                                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                            intent.addCategory(Intent.CATEGORY_BROWSABLE);
+
+                                            List<ResolveInfo> list = getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                                            if (list == null || list.isEmpty()) {
+                                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.skt.tmap.ku")));
+                                            } else {
+                                                startActivity(intent);
+                                            }
+                                        }
+                                    });
+
+                                    videoId = userRestaurantData.getUserRestaurantYoutubeId();
+                                    youTubePlayer.cueVideo(videoId, 0);
+
+                                    _slide_layout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+                                    _slide_title_name.setText(userRestaurantData.getUserRestaurantName());
+                                    _slide_address_name.setText(userRestaurantData.getUserRestaurantAddress());
+
+                                    if (!(userRestaurantData.getUserRestaurantReviewStarPoint()).equals("") || !(userRestaurantData.getUserRestaurantReviewVisitorCount()).equals("") || !(userRestaurantData.getUserRestaurantReviewBlogCount()).equals("")) {
+                                        if ((userRestaurantData.getUserRestaurantReviewStarPoint()).equals("")) {
+                                            _review_star.setVisibility(View.GONE);
+                                            _review_star_point.setVisibility(View.GONE);
+                                            _review_star_full_point.setVisibility(View.GONE);
+                                        } else {
+                                            _review_star.setVisibility(View.VISIBLE);
+                                            _review_star_point.setVisibility(View.VISIBLE);
+                                            _review_star_full_point.setVisibility(View.VISIBLE);
+
+                                            _review_star_point.setText(userRestaurantData.getUserRestaurantReviewStarPoint());
                                         }
 
-                                    }
-                                });
-
-                                kakaoBtn.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        System.out.println("=========["+userRestaurantData.getUserRestaurantName()+"] KAKAOMapID : " + userRestaurantData.getUserRestaurantKakaomapId());
-                                        String url = "kakaomap://place?id="+userRestaurantData.getUserRestaurantKakaomapId();
-                                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                                        intent.addCategory(Intent.CATEGORY_BROWSABLE);
-
-                                        List<ResolveInfo> list = getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
-                                        if(list == null || list.isEmpty()) {
-                                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=net.daum.android.map")));
-                                        }else{
-                                            startActivity(intent);
+                                        if ((userRestaurantData.getUserRestaurantReviewVisitorCount()).equals("")) {
+                                            _review_visitor.setVisibility(View.GONE);
+                                        } else {
+                                            if (!(userRestaurantData.getUserRestaurantReviewStarPoint()).equals("")) {
+                                                _review_gubun_1.setVisibility(View.VISIBLE);
+                                            } else {
+                                                _review_gubun_1.setVisibility(View.GONE);
+                                            }
+                                            _review_visitor.setVisibility(View.VISIBLE);
+                                            _review_visitor.setText("방문자리뷰 " + userRestaurantData.getUserRestaurantReviewVisitorCount());
+                                            _review_visitor.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    WEBVIEW_URL = "https://m.place.naver.com/restaurant/" + userRestaurantData.getUserRestaurantNavermapId() + "/review/visitor?type=photoView";
+                                                    //Intent webViewIntent = new Intent(getApplicationContext(), webViewActivity.class);
+                                                    //startActivity(webViewIntent);
+                                                    Intent intentUrl = new Intent(Intent.ACTION_VIEW, Uri.parse(WEBVIEW_URL));
+                                                    startActivity(intentUrl);
+                                                }
+                                            });
                                         }
-                                    }
-                                });
 
-                                tBtn.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        System.out.println("=========["+userRestaurantData.getUserRestaurantName()+"] TMapID : " + userRestaurantData.getUserRestaurantTmapId());
-                                        String url = "tmap://route?goalx="+userRestaurantData.getUserRestaurantLongitude()+"&goaly="+userRestaurantData.getUserRestaurantLatitude()+"&goalname="+userRestaurantData.getUserRestaurantName();
-                                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                                        intent.addCategory(Intent.CATEGORY_BROWSABLE);
-
-                                        List<ResolveInfo> list = getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
-                                        if(list == null || list.isEmpty()) {
-                                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.skt.tmap.ku")));
-                                        }else{
-                                            startActivity(intent);
+                                        if ((userRestaurantData.getUserRestaurantReviewBlogCount()).equals("")) {
+                                            _review_blog.setVisibility(View.GONE);
+                                        } else {
+                                            if (!(userRestaurantData.getUserRestaurantReviewBlogCount()).equals("")) {
+                                                _review_gubun_2.setVisibility(View.VISIBLE);
+                                            } else {
+                                                _review_gubun_2.setVisibility(View.GONE);
+                                            }
+                                            _review_blog.setVisibility(View.VISIBLE);
+                                            _review_blog.setText("블로그리뷰 " + userRestaurantData.getUserRestaurantReviewBlogCount());
+                                            _review_blog.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    WEBVIEW_URL = "https://m.place.naver.com/restaurant/" + userRestaurantData.getUserRestaurantNavermapId() + "/review/ugc?type=photoView";
+                                                    //Intent webViewIntent = new Intent(getApplicationContext(), webViewActivity.class);
+                                                    //startActivity(webViewIntent);
+                                                    Intent intentUrl = new Intent(Intent.ACTION_VIEW, Uri.parse(WEBVIEW_URL));
+                                                    startActivity(intentUrl);
+                                                }
+                                            });
                                         }
-                                    }
-                                });
-
-                                videoId = userRestaurantData.getUserRestaurantYoutubeId();
-                                youTubePlayer.cueVideo(videoId, 0);
-
-                                _slide_layout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
-                                _slide_title_name.setText(userRestaurantData.getUserRestaurantName());
-                                _slide_address_name.setText(userRestaurantData.getUserRestaurantAddress());
-
-                                if(!(userRestaurantData.getUserRestaurantReviewStarPoint()).equals("") || !(userRestaurantData.getUserRestaurantReviewVisitorCount()).equals("") || !(userRestaurantData.getUserRestaurantReviewBlogCount()).equals("")) {
-                                    if ((userRestaurantData.getUserRestaurantReviewStarPoint()).equals("")) {
+                                    } else {
                                         _review_star.setVisibility(View.GONE);
                                         _review_star_point.setVisibility(View.GONE);
                                         _review_star_full_point.setVisibility(View.GONE);
-                                    } else {
-                                        _review_star.setVisibility(View.VISIBLE);
-                                        _review_star_point.setVisibility(View.VISIBLE);
-                                        _review_star_full_point.setVisibility(View.VISIBLE);
-
-                                        _review_star_point.setText(userRestaurantData.getUserRestaurantReviewStarPoint());
-                                    }
-
-                                    if ((userRestaurantData.getUserRestaurantReviewVisitorCount()).equals("")) {
                                         _review_visitor.setVisibility(View.GONE);
-                                    } else {
-                                        if (!(userRestaurantData.getUserRestaurantReviewStarPoint()).equals("")) {
-                                            _review_gubun_1.setVisibility(View.VISIBLE);
-                                        } else {
-                                            _review_gubun_1.setVisibility(View.GONE);
-                                        }
-                                        _review_visitor.setVisibility(View.VISIBLE);
-                                        _review_visitor.setText("방문자리뷰 " + userRestaurantData.getUserRestaurantReviewVisitorCount());
-                                        _review_visitor.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                WEBVIEW_URL = "https://m.place.naver.com/restaurant/" + userRestaurantData.getUserRestaurantNavermapId() + "/review/visitor?type=photoView";
-                                                //Intent webViewIntent = new Intent(getApplicationContext(), webViewActivity.class);
-                                                //startActivity(webViewIntent);
-                                                Intent intentUrl = new Intent(Intent.ACTION_VIEW, Uri.parse(WEBVIEW_URL));
-                                                startActivity(intentUrl);
-                                            }
-                                        });
-                                    }
-
-                                    if ((userRestaurantData.getUserRestaurantReviewBlogCount()).equals("")) {
+                                        _review_gubun_1.setVisibility(View.GONE);
                                         _review_blog.setVisibility(View.GONE);
-                                    } else {
-                                        if (!(userRestaurantData.getUserRestaurantReviewBlogCount()).equals("")) {
-                                            _review_gubun_2.setVisibility(View.VISIBLE);
-                                        } else {
-                                            _review_gubun_2.setVisibility(View.GONE);
-                                        }
-                                        _review_blog.setVisibility(View.VISIBLE);
-                                        _review_blog.setText("블로그리뷰 " + userRestaurantData.getUserRestaurantReviewBlogCount());
-                                        _review_blog.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                WEBVIEW_URL = "https://m.place.naver.com/restaurant/" + userRestaurantData.getUserRestaurantNavermapId() + "/review/ugc?type=photoView";
-                                                //Intent webViewIntent = new Intent(getApplicationContext(), webViewActivity.class);
-                                                //startActivity(webViewIntent);
-                                                Intent intentUrl = new Intent(Intent.ACTION_VIEW, Uri.parse(WEBVIEW_URL));
-                                                startActivity(intentUrl);
-                                            }
-                                        });
+                                        _review_gubun_2.setVisibility(View.GONE);
                                     }
-                                }else{
-                                    _review_star.setVisibility(View.GONE);
-                                    _review_star_point.setVisibility(View.GONE);
-                                    _review_star_full_point.setVisibility(View.GONE);
-                                    _review_visitor.setVisibility(View.GONE);
-                                    _review_gubun_1.setVisibility(View.GONE);
-                                    _review_blog.setVisibility(View.GONE);
-                                    _review_gubun_2.setVisibility(View.GONE);
-                                }
 
-                                return false;
-                            }
-                        });
-                        marker_cnt++;
+                                    return false;
+                                }
+                            });
+                            marker_cnt++;
+                        }
                     }
                 }
             }
